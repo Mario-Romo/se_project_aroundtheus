@@ -104,7 +104,6 @@
 
   .profile__title {
     width: 196px;
-    white-space: nowrap;
     font-size: 22px;
     line-height: 26.63px;
     text-align: center;
@@ -115,7 +114,7 @@
     width: 100%;
     width: 282px;
     height: 14px;
-    white-space: nowrap;
+    overflow: visible;
     font-size: 14px;
     line-height: 16.94px;
     text-align: center;
