@@ -74,7 +74,7 @@
   color: #fff;
 }
 
-.modal__form_inputTitle {
+.modal__form__input_title {
   font-family: "Inter", sans-serif;
   width: 100%;
   height: 27.26px;
@@ -88,7 +88,7 @@
   margin-bottom: 29.74px;
 }
 
-.modal__form_inputDescription {
+.modal__form__input_description {
   font-family: "Inter", sans-serif;
   width: 100%;
   height: 27.26px;
