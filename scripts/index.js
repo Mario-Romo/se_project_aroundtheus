@@ -44,26 +44,26 @@ const cardTemplate = document.querySelector("#card-template").content.firstEleme
 /*------------------------ FUNCTIONS ------------------------------*/
 
 function closePopop() {
-    profileEditModal.classList.remove("modal_opened");
+  profileEditModal.classList.remove("modal_opened");
 }
 
 function getCardElement(cardData) {
-const cardElement = cardTemplate.cloneNode(true);
-const cardImageEl = cardElement.querySelector('.card__image');
-const cardTitleEl = cardElement.querySelector('.card__title');
-cardImageEl.src = cardData.link;
-cardImageEl.alt = cardData.name;
-cardTitleEl.textContent = cardData.name;
-return cardElement;
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImageEl = cardElement.querySelector('.card__image');
+  const cardTitleEl = cardElement.querySelector('.card__title');
+  cardImageEl.src = cardData.link;
+  cardImageEl.alt = cardData.name;
+  cardTitleEl.textContent = cardData.name;
+ return cardElement;
 }
 
 
 /*------------------------ EVENT HANDLERS ------------------------------*/
 function handleProfileEditSubmit(e) {
-    e.preventDefault(); 
-    profileTitle.textContent = profileTitleInput.value;
-    profileDescription.textContent = profileDescriptionInput.value;
-    closePopop();
+  e.preventDefault(); 
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  closePopop();
 }
 
 
@@ -71,9 +71,9 @@ function handleProfileEditSubmit(e) {
 /*------------------------ EVENT LISTENERS ------------------------------*/
 
 profileEditButton.addEventListener('click', () => {
-    profileTitleInput.value = profileTitle.textContent;
-    profileDescriptionInput.value = profileDescription.textContent;
-    profileEditModal.classList.add("modal_opened");
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+  profileEditModal.classList.add("modal_opened");
 });
 
 
@@ -84,8 +84,8 @@ profileEditCloseButton.addEventListener('click', closePopop);
 profileEditForm.addEventListener('submit', handleProfileEditSubmit);
 
 initialCards.forEach((cardData) => {
-const cardElement = getCardElement(cardData);
-cardListEl.append(cardElement);
+  const cardElement = getCardElement(cardData);
+  cardListEl.append(cardElement);
 });
 
 
