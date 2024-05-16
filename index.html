@@ -51,22 +51,20 @@
           id="modal-close-btn"
         ></button>
         <h2 class="modal__heading">Edit Form</h2>
-        <form class="modal__form">
+        <form class="modal__form" id="edit-profile-form">
           <input
-            class="modal__input"
-            name="title"
+            class="modal__input modal__input_type_name"
             id="profile-title-input"
+            name="name"
             placeholder="Name"
             type="text"
-            required
           />
           <input
-            class="modal__input"
-            name="description"
+            class="modal__input modal__input_type_description"
             id="profile-description-input"
+            name="description"
             placeholder="Description"
             type="text"
-            required
           />
           <button type="submit" class="modal__button">Save</button>
         </form>
@@ -74,7 +72,7 @@
     </div>
 
     <!--- Add Card Modal --->
-    <div class="modal">
+    <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button
           type="button"
@@ -88,14 +86,12 @@
             name="title"
             placeholder="Title"
             type="text"
-            required
           />
           <input
             class="modal__input modal__input_type_url"
             name="url"
             placeholder="Image URL"
             type="text"
-            required
           />
           <button type="submit" class="modal__button">Save</button>
         </form>
