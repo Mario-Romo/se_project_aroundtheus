@@ -1,6 +1,6 @@
+/* transparent layer for popup content: */
 .modal {
   display: flex;
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,11 +8,11 @@
   right: 0;
   padding: 0 19px;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.modal_opened {
-  display: flex;
+  z-index: 998;
+  /* smooth transition (works w/ .modal_opened): */
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
 }
 
 .modal__container {
@@ -24,8 +24,44 @@
   background-color: rgb(255, 254, 254);
   margin: auto;
   padding: 0px 36px;
-
   border-radius: 10px;
+}
+
+/* container for image, x button and caption */
+.image__modal_container {
+  display: flex;
+  position: relative;
+  padding: 0;
+  /* keeps right proportions on image: */
+  max-width: 75vw;
+  max-height: 75vh;
+  margin: auto;
+}
+
+.popup__image {
+  object-fit: cover;
+  align-items: center;
+  max-width: 100%;
+}
+
+.popup__caption {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 14.52px;
+  top: calc(100% + 5px);
+  margin: 0;
+  padding: 0;
+}
+
+.modal_opened {
+  display: flex;
+  /* smooth fade-in (works w/ .modal): */
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .modal__heading {

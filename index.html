@@ -90,16 +90,27 @@
           <input
             class="modal__input modal__input_type_url"
             name="url"
-            placeholder="Image URL"
+            placeholder="Image link"
             type="text"
           />
-          <button type="submit" class="modal__button">Save</button>
+          <button type="submit" class="modal__button">Create</button>
         </form>
       </div>
     </div>
 
+    <!--- Image Modal --->
+    <div class="modal" id="image-modal">
+      <div class="image__modal_container">
+        <button type="button" class="modal__close"></button>
+        <img class="popup__image" src="" alt="" />
+        <p class="popup__caption"></p>
+      </div>
+    </div>
+
+    <!--- this template connects the contents of card to JS --->
     <template id="card-template">
       <li class="card">
+        <button type="button" class="card__delete-button"></button>
         <img class="card__image" src="" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>
