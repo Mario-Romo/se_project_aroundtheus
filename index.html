@@ -105,15 +105,23 @@
 							type="text"
 							maxlength="30"
 							minlength="1"
+							required
 						/>
 						<span class="modal__error" id="add-card-title-input-error"></span>
 					</label>
-					<input
-						class="modal__input modal__input_type_url"
-						name="url"
-						placeholder="Image link"
-						type="text"
-					/>
+					<label class="modal__label">
+						<input
+							class="modal__input modal__input_type_url"
+							id="add-card-description-input"
+							name="url"
+							placeholder="Image link"
+							type="url"
+						/>
+						<span
+							class="modal__error"
+							id="add-card-description-input-error"
+						></span>
+					</label>
 					<button type="submit" class="modal__button">Create</button>
 				</form>
 			</div>
