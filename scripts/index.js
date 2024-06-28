@@ -42,6 +42,8 @@ const modalCaption = imageModal.querySelector('.popup__caption');
 const profileEditButton = document.querySelector('#profile-edit-button');
 const profileModalCloseButton = editProfileModal.querySelector('.modal__close');
 const addCardModalCloseButton = addCardModal.querySelector('.modal__close');
+// transparent layer that contains all modals
+const layerCloseModals = document.querySelectorAll('.modal');
 
 const imageModalCloseButton = imageModal.querySelector('.modal__close');
 
@@ -67,12 +69,24 @@ const cardUrlInput = addCardFormElement.querySelector(
 
 /*------------------------ FUNCTIONS ------------------------------*/
 
+// close modals using ESC key, notice how the function is later called on closeModal and openModal
+function closeModalEsc(evt) {
+	const openedModal = document.querySelector('.modal_opened');
+	if (evt.key === 'Escape') {
+		closeModal(openedModal);
+	}
+}
+
 function closeModal(modal) {
 	modal.classList.remove('modal_opened');
+	// apply closeModalEsc function
+	document.removeEventListener('keydown', closeModalEsc);
 }
 
 function openModal(modal) {
 	modal.classList.add('modal_opened');
+	// apply closeModalEsc function
+	document.addEventListener('keydown', closeModalEsc);
 }
 
 function renderCard(cardData, wrapper) {
@@ -82,6 +96,15 @@ function renderCard(cardData, wrapper) {
 
 // make x-button close modalImage
 imageModalCloseButton.addEventListener('click', () => closeModal(imageModal));
+
+// make transparent layer close all 3 modals by clicking on it
+layerCloseModals.forEach((modal) => {
+	modal.addEventListener('click', (evt) => {
+		if (evt.target === modal) {
+			closeModal(modal);
+		}
+	});
+});
 
 // 'one-stop' function to perform these tasks:
 function getCardElement(cardData) {
