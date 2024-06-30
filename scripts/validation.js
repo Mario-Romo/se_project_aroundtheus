@@ -64,11 +64,15 @@ function toggleButtonState(
 // declare function to set event listeners
 function setEventListeners(formElement, options) {
 	// use 'object desctruction' to create a variable
-	const { inputSelector } = options;
+	const { inputSelector, submitButtonSelector } = options;
 	// gather all input elements using ... to make it an array, works the same as Array.from
 	const inputElements = [...formElement.querySelectorAll(inputSelector)];
-	// reset modal submit button
-	const submitButton = formElement.querySelector('.modal__button');
+
+	// reset modal submit button (this is hard coding it, avoid it)
+	//const submitButton = formElement.querySelector('.modal__button');
+	// instead use this to query submitButton using sumbitButtonSelector from options
+	const submitButton = formElement.querySelector(submitButtonSelector);
+
 	// iterate through each input element to capture when user inputs anything in the element
 	inputElements.forEach((inputElement) => {
 		inputElement.addEventListener('input', (evt) => {

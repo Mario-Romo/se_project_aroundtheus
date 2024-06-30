@@ -71,8 +71,9 @@ const cardUrlInput = addCardFormElement.querySelector(
 
 // close modals using ESC key, notice how the function is later called on closeModal and openModal
 function closeModalEsc(evt) {
-	const openedModal = document.querySelector('.modal_opened');
 	if (evt.key === 'Escape') {
+		// we bring this const inside the if statement so we don't look everywhere in document thus saving memory
+		const openedModal = document.querySelector('.modal_opened');
 		closeModal(openedModal);
 	}
 }
