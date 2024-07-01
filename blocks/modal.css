@@ -119,6 +119,11 @@
 	opacity: 80%;
 }
 
+.modal__button_disabled {
+	background-color: gray;
+	opacity: 100%;
+}
+
 .modal__input {
 	font-family: 'Inter', sans-serif;
 	width: 100%;
