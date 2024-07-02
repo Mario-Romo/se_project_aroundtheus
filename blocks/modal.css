@@ -121,7 +121,8 @@
 
 .modal__button_disabled {
 	background-color: gray;
-	opacity: 20%;
+	color: black;
+	opacity: 30%;
 }
 
 .modal__input {

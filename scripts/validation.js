@@ -73,6 +73,9 @@ function setEventListeners(formElement, options) {
 	// instead use this to query submitButton using sumbitButtonSelector from options
 	const submitButton = formElement.querySelector(submitButtonSelector);
 
+	// --- DISABLE SUBMIT BUTTON UPON LOADING MODAL ---
+	toggleButtonState(inputElements, submitButton, options);
+
 	// iterate through each input element to capture when user inputs anything in the element
 	inputElements.forEach((inputElement) => {
 		inputElement.addEventListener('input', (evt) => {
