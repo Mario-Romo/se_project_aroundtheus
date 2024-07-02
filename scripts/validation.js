@@ -72,10 +72,8 @@ function setEventListeners(formElement, options) {
 	//const submitButton = formElement.querySelector('.modal__button');
 	// instead use this to query submitButton using sumbitButtonSelector from options
 	const submitButton = formElement.querySelector(submitButtonSelector);
-
-	// --- DISABLE SUBMIT BUTTON UPON LOADING MODAL ---
+	// disable submit button upon uploading modal (so is not active when card modal is just opened)
 	toggleButtonState(inputElements, submitButton, options);
-
 	// iterate through each input element to capture when user inputs anything in the element
 	inputElements.forEach((inputElement) => {
 		inputElement.addEventListener('input', (evt) => {
