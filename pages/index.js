@@ -1,3 +1,21 @@
+// IMPORT Card CLASS FROM Card.js module
+import Card from '../components/Card.js';
+// // IMPORT FormValiator CLASS FROM FormValidator.js module
+// import FormValidator from '../components/FormValidator.js';
+
+const config = {
+	formSelector: '.modal__form' /*.popup__form*/,
+	inputSelector: '.modal__input' /*.popup__input*/,
+	submitButtonSelector: '.modal__button' /*.popup__button*/,
+	inactiveButtonClass: 'modal__button_disabled' /*popup__button_disabled*/,
+	inputErrorClass: 'modal__input_type_error' /*popup__input_type_error*/,
+	errorClass: 'modal__error_visible' /*popup__error_visible*/,
+};
+
+//INSTANTIATE NEW FormValidator()
+// const editFormValidator = new FormValidator(settings, formElement);
+// editFormValidator.enableValidation();
+
 const initialCards = [
 	{
 		name: 'Yosemite Valley',
@@ -24,6 +42,15 @@ const initialCards = [
 		link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg',
 	},
 ];
+
+// INITIATE data
+const data = {
+	name: 'Yosemite Valley',
+	link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg',
+};
+
+const card = new Card(data);
+//card.testMethod();
 
 /*------------------------ ELEMENTS ------------------------------*/
 // Wrappers
