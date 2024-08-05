@@ -50,7 +50,7 @@ const data = {
 };
 
 const card = new Card(data);
-//card.testMethod();
+card.getView();
 
 /*------------------------ ELEMENTS ------------------------------*/
 // Wrappers
