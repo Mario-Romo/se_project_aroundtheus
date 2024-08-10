@@ -52,7 +52,7 @@
 // 		});
 // 	}
 
-// 	// Notice how this one is public, NOT private because is called up in editFormValidator.enableValidation();
+// 	// Notice this one is public, NOT private because is called up in editFormValidator.enableValidation();
 // 	enableValidation() {
 // 		this._form.addEventListener('submit', (evt) => {
 // 			evt.preventDefault();

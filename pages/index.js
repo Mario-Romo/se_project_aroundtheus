@@ -1,21 +1,7 @@
-// IMPORT Card CLASS FROM Card.js module
 import Card from '../components/Card.js';
-// // IMPORT FormValiator CLASS FROM FormValidator.js module
-// import FormValidator from '../components/FormValidator.js';
+//import FormValidator from '../components/FormValidator.js';
 
-const config = {
-	formSelector: '.modal__form' /*.popup__form*/,
-	inputSelector: '.modal__input' /*.popup__input*/,
-	submitButtonSelector: '.modal__button' /*.popup__button*/,
-	inactiveButtonClass: 'modal__button_disabled' /*popup__button_disabled*/,
-	inputErrorClass: 'modal__input_type_error' /*popup__input_type_error*/,
-	errorClass: 'modal__error_visible' /*popup__error_visible*/,
-};
-
-//INSTANTIATE NEW FormValidator()
-// const editFormValidator = new FormValidator(settings, formElement);
-// editFormValidator.enableValidation();
-
+// initial card array
 const initialCards = [
 	{
 		name: 'Yosemite Valley',
@@ -43,14 +29,26 @@ const initialCards = [
 	},
 ];
 
-// INITIATE data
-const data = {
-	name: 'Yosemite Valley',
-	link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg',
+// const cardData = {
+// 	name: 'Yosemite Valley',
+// 	link: 'https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg',
+// };
+
+// settings for validation
+const config = {
+	inputSelector: '.modal__input',
+	submitButtonSelector: '.modal__button',
+	inactiveButtonClass: 'modal__button_disabled',
+	inputErrorClass: 'modal__input_type_error',
+	errorClass: 'modal__error_visible',
 };
 
-const card = new Card(data);
-card.getView();
+// defines variable cardSelector as template from its id
+const cardSelector = '#card-template';
+
+//INSTANTIATE NEW FormValidator()
+// const editFormValidator = new FormValidator(settings, formElement);
+// editFormValidator.enableValidation();
 
 /*------------------------ ELEMENTS ------------------------------*/
 // Wrappers
@@ -117,8 +115,19 @@ function openModal(modal) {
 	document.addEventListener('keydown', closeModalEsc);
 }
 
+// specify two parameters name and link
+function handleImageClick(cardData) {
+	modalImageElement.src = cardData.link;
+	modalCaption.textContent = cardData.name;
+	// pass alt text attribute to modal image:
+	modalImageElement.alt = cardData.name;
+	// open imageModal using openModal function
+	openModal(imageModal);
+}
+
 function renderCard(cardData, wrapper) {
-	const cardElement = getCardElement(cardData);
+	const card = new Card(cardData, cardSelector, handleImageClick);
+	const cardElement = card.getView();
 	wrapper.prepend(cardElement);
 }
 
@@ -135,46 +144,44 @@ layerCloseModals.forEach((modal) => {
 });
 
 // 'one-stop' function to perform these tasks:
-function getCardElement(cardData) {
-	//declare local const variables used in function:
-	const cardElement = cardTemplate.cloneNode(true);
-	const cardImageEl = cardElement.querySelector('.card__image');
-	const cardTitleEl = cardElement.querySelector('.card__title');
-	const likeButton = cardElement.querySelector('.card__like-button');
+// function getCardElement(cardData) {
+// 	//declare local const variables used in function:
+// 	const cardElement = cardTemplate.cloneNode(true);
+// 	const cardImageEl = cardElement.querySelector('.card__image');
+// 	const cardTitleEl = cardElement.querySelector('.card__title');
+// 	const likeButton = cardElement.querySelector('.card__like-button');
+// 	const deleteButton = cardElement.querySelector('.card__delete-button');
 
-	//find delete button:
-	const deleteButton = cardElement.querySelector('.card__delete-button');
-	//add the event listener to the delete button:
-	deleteButton.addEventListener('click', () => {
-		cardElement.remove();
-	});
-	//add click listener to the cardImage element:
-	cardImageEl.addEventListener('click', () => {
-		// these two work w/their const to update image and caption text
-		modalImageElement.src = cardData.link;
-		modalCaption.textContent = cardData.name;
-		// pass alt text attribute to modal image:
-		modalImageElement.alt = cardData.name;
-		// open imageModal using openModal function
-		openModal(imageModal);
-	});
-	//add click listener to likeButton:
-	likeButton.addEventListener('click', () => {
-		likeButton.classList.toggle('card__like-button_active');
-	});
+// 	//add the event listener to the delete button:
+// 	deleteButton.addEventListener('click', () => {
+// 		cardElement.remove();
+// 	});
+// 	//add click listener to the cardImage element:
+// 	cardImageEl.addEventListener('click', () => {
+// 		// these two work w/their const to update image and caption text
+// 		modalImageElement.src = cardData.link;
+// 		modalCaption.textContent = cardData.name;
+// 		// pass alt text attribute to image:
+// 		modalImageElement.alt = cardData.name;
+// 		// open imageModal using openModal function
+// 		openModal(imageModal);
+// 	});
+// 	//add click listener to likeButton:
+// 	likeButton.addEventListener('click', () => {
+// 		likeButton.classList.toggle('card__like-button_active');
+// 	});
 
-	cardImageEl.src = cardData.link;
-	cardImageEl.alt = cardData.name;
-	cardTitleEl.textContent = cardData.name;
+// 	cardImageEl.src = cardData.link;
+// 	cardImageEl.alt = cardData.name;
+// 	cardTitleEl.textContent = cardData.name;
 
-	return cardElement;
-}
+// 	return cardElement;
+// }
 
 /*------------------------ EVENT HANDLERS ------------------------------*/
 
 function handleProfileFormSubmit(evt) {
 	evt.preventDefault();
-
 	profileTitle.textContent = profileTitleInput.value;
 	profileDescription.textContent = profileDescriptionInput.value;
 	closeModal(editProfileModal);
