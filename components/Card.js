@@ -4,8 +4,6 @@ export default class Card {
 		this._link = cardData.link;
 		this._cardSelector = cardSelector;
 		this._handleImageClick = handleImageClick;
-
-		// console.log(cardData.name);
 	}
 
 	// set event listeners for like, delete buttons and image
