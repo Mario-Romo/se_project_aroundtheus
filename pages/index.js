@@ -1,5 +1,5 @@
 import Card from '../components/Card.js';
-//import FormValidator from '../components/FormValidator.js';
+import FormValidator from '../components/FormValidator.js';
 
 // initial card array
 const initialCards = [
@@ -40,10 +40,6 @@ const config = {
 
 // defines variable cardSelector as template from its id
 const cardSelector = '#card-template';
-
-//INSTANTIATE NEW FormValidator()
-// const editFormValidator = new FormValidator(settings, formElement);
-// editFormValidator.enableValidation();
 
 /*------------------------ ELEMENTS ------------------------------*/
 // Wrappers
@@ -87,6 +83,11 @@ const cardUrlInput = addCardFormElement.querySelector(
 	'#add-card-description-input'
 );
 
+//INSTANTIATE NEW FormValidator()
+const editFormValidator = new FormValidator(config, profileFormElement);
+editFormValidator.enableValidation();
+const addFormValidator = new FormValidator(config, addCardFormElement);
+addFormValidator.enableValidation();
 /*------------------------ FUNCTIONS ------------------------------*/
 
 // close modals using ESC key, notice how the function is later called on closeModal and openModal
