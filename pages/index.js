@@ -200,6 +200,7 @@ function handleProfileFormSubmit(evt) {
 	// evt.target.reset();
 }
 
+// _________________
 function handleAddCardFormSubmit(evt) {
 	evt.preventDefault();
 	const name = cardTitleInput.value;
@@ -210,20 +211,25 @@ function handleAddCardFormSubmit(evt) {
 	evt.target.reset();
 	// disable submit button after clearing
 	submitButtonSelector.disabled = true;
-	submitButtonSelector.classList.add('modal__button_disabled');
+	submitButtonSelector.classList.add(inactiveButtonClass);
 }
 
 function toggleSubmitButtonState() {
 	const isFormValid = cardTitleInput.value.trim() && cardUrlInput.value.trim();
 	submitButtonSelector.disabled = !isFormValid;
 	if (isFormValid) {
-		submitButtonSelector.classList.remove('modal__button_disabled');
+		submitButtonSelector.classList.remove(inactiveButtonClass);
 	} else {
-		submitButtonSelector.classList.add('modal__button_disabled');
+		submitButtonSelector.classList.add(inactiveButtonClass);
 	}
 }
 
 /*------------------------ EVENT LISTENERS ------------------------------*/
+
+// monitors whether inputs are empty or not to change the state of button
+cardTitleInput.addEventListener('input', toggleSubmitButtonState);
+cardUrlInput.addEventListener('input', toggleSubmitButtonState);
+// ______________
 
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
@@ -245,10 +251,6 @@ addNewCardButton.addEventListener('click', () => openModal(addCardModal));
 addCardModalCloseButton.addEventListener('click', () =>
 	closeModal(addCardModal)
 );
-
-// monitors whether inputs are empty or not to change the state of button
-cardTitleInput.addEventListener('input', toggleSubmitButtonState);
-cardUrlInput.addEventListener('input', toggleSubmitButtonState);
 
 // inserts a card
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
