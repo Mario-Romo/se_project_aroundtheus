@@ -88,6 +88,7 @@ const editFormValidator = new FormValidator(config, profileFormElement);
 editFormValidator.enableValidation();
 const addFormValidator = new FormValidator(config, addCardFormElement);
 addFormValidator.enableValidation();
+
 /*------------------------ FUNCTIONS ------------------------------*/
 
 // close modals using ESC key, notice how the function is later called on closeModal and openModal
@@ -121,11 +122,25 @@ function handleImageClick(cardData) {
 	openModal(imageModal);
 }
 
-function renderCard(cardData, wrapper) {
+// create a card
+function createCard(cardData, cardSelector, handleImageClick) {
+	// create a card and return it rendered using getView()
 	const card = new Card(cardData, cardSelector, handleImageClick);
-	const cardElement = card.getView();
+	return card.getView();
+}
+
+// use createCard in renderCard
+function renderCard(cardData, wrapper) {
+	// use createCard to create a card element
+	const cardElement = createCard(cardData, cardSelector, handleImageClick);
 	wrapper.prepend(cardElement);
 }
+
+// iterate over initialCards array
+const cardContainer = document.querySelector(cardSelector);
+initialCards.forEach((cardData) => {
+	renderCard(cardData, cardContainer);
+});
 
 // make x-button close modalImage
 imageModalCloseButton.addEventListener('click', () => closeModal(imageModal));
