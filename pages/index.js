@@ -154,41 +154,6 @@ layerCloseModals.forEach((modal) => {
 	});
 });
 
-// 'one-stop' function to perform these tasks:
-// function getCardElement(cardData) {
-// 	//declare local const variables used in function:
-// 	const cardElement = cardTemplate.cloneNode(true);
-// 	const cardImageEl = cardElement.querySelector('.card__image');
-// 	const cardTitleEl = cardElement.querySelector('.card__title');
-// 	const likeButton = cardElement.querySelector('.card__like-button');
-// 	const deleteButton = cardElement.querySelector('.card__delete-button');
-
-// 	//add the event listener to the delete button:
-// 	deleteButton.addEventListener('click', () => {
-// 		cardElement.remove();
-// 	});
-// 	//add click listener to the cardImage element:
-// 	cardImageEl.addEventListener('click', () => {
-// 		// these two work w/their const to update image and caption text
-// 		modalImageElement.src = cardData.link;
-// 		modalCaption.textContent = cardData.name;
-// 		// pass alt text attribute to image:
-// 		modalImageElement.alt = cardData.name;
-// 		// open imageModal using openModal function
-// 		openModal(imageModal);
-// 	});
-// 	//add click listener to likeButton:
-// 	likeButton.addEventListener('click', () => {
-// 		likeButton.classList.toggle('card__like-button_active');
-// 	});
-
-// 	cardImageEl.src = cardData.link;
-// 	cardImageEl.alt = cardData.name;
-// 	cardTitleEl.textContent = cardData.name;
-
-// 	return cardElement;
-// }
-
 /*------------------------ EVENT HANDLERS ------------------------------*/
 
 function handleProfileFormSubmit(evt) {
@@ -213,22 +178,7 @@ function handleAddCardFormSubmit(evt) {
 	addFormValidator.disableSubmitButton();
 }
 
-// function toggleSubmitButtonState() {
-// 	const isFormValid = cardTitleInput.value.trim() && cardUrlInput.value.trim();
-// 	submitButtonSelector.disabled = !isFormValid;
-// 	if (isFormValid) {
-// 		submitButtonSelector.classList.remove(inactiveButtonClass);
-// 	} else {
-// 		submitButtonSelector.classList.add(inactiveButtonClass);
-// 	}
-// }
-
 /*------------------------ EVENT LISTENERS ------------------------------*/
-
-// // monitors whether inputs are empty or not to change the state of button
-// cardTitleInput.addEventListener('input', toggleSubmitButtonState);
-// cardUrlInput.addEventListener('input', toggleSubmitButtonState);
-// ______________
 
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
