@@ -204,11 +204,23 @@ function handleAddCardFormSubmit(evt) {
 	evt.preventDefault();
 	const name = cardTitleInput.value;
 	const link = cardUrlInput.value;
-
 	renderCard({ name, link }, cardsWrap);
 	closeModal(addCardModal);
 	// clear input fields after submit:
 	evt.target.reset();
+	// disable submit button after clearing
+	submitButtonSelector.disabled = true;
+	submitButtonSelector.classList.add('modal__button_disabled');
+}
+
+function toggleSubmitButtonState() {
+	const isFormValid = cardTitleInput.value.trim() && cardUrlInput.value.trim();
+	submitButtonSelector.disabled = !isFormValid;
+	if (isFormValid) {
+		submitButtonSelector.classList.remove('modal__button_disabled');
+	} else {
+		submitButtonSelector.classList.add('modal__button_disabled');
+	}
 }
 
 /*------------------------ EVENT LISTENERS ------------------------------*/
@@ -233,6 +245,10 @@ addNewCardButton.addEventListener('click', () => openModal(addCardModal));
 addCardModalCloseButton.addEventListener('click', () =>
 	closeModal(addCardModal)
 );
+
+// monitors whether inputs are empty or not to change the state of button
+cardTitleInput.addEventListener('input', toggleSubmitButtonState);
+cardUrlInput.addEventListener('input', toggleSubmitButtonState);
 
 // inserts a card
 initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
