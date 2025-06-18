@@ -1,5 +1,11 @@
+/*------------------------ IMPORT MODULES ------------------------------*/
 import Card from '../components/Card.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import FormValidator from '../components/FormValidator.js';
+import PopupWithForm from '../components/PopupWithForms.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import '../pages/index.css';
 
 // initial card array
 const initialCards = [
@@ -38,11 +44,9 @@ const config = {
 	errorClass: 'modal__error_visible',
 };
 
-// defines variable cardSelector as template from its id
-const cardSelector = '#card-template';
+/*------------------------ CONSTANTS AND DOM ELEMENTS ------------------------------*/
 
-/*------------------------ ELEMENTS ------------------------------*/
-// Wrappers
+const cardSelector = '#card-template';
 const cardsWrap = document.querySelector('.cards__list');
 const editProfileModal = document.querySelector('#edit-modal');
 const addCardModal = document.querySelector('#add-card-modal');
@@ -75,7 +79,6 @@ const profileTitleInput = document.querySelector('#profile-title-input');
 const profileDescriptionInput = document.querySelector(
 	'#profile-description-input'
 );
-
 const cardTitleInput = addCardFormElement.querySelector(
 	'#add-card-title-input'
 );
@@ -83,11 +86,13 @@ const cardUrlInput = addCardFormElement.querySelector(
 	'#add-card-description-input'
 );
 
-//INSTANTIATE NEW FormValidator()
+//Instatiate new FormValidator()
 const editFormValidator = new FormValidator(config, profileFormElement);
 editFormValidator.enableValidation();
 const addFormValidator = new FormValidator(config, addCardFormElement);
 addFormValidator.enableValidation();
+
+const userInfo = new UserInfo(profileTitle, profileDescription);
 
 /*------------------------ FUNCTIONS ------------------------------*/
 
@@ -100,106 +105,140 @@ function closeModalEsc(evt) {
 	}
 }
 
+// closes popup using Esc button
 function closeModal(modal) {
 	modal.classList.remove('modal_opened');
 	// apply closeModalEsc function
 	document.removeEventListener('keydown', closeModalEsc);
 }
 
+// // opens popup
 function openModal(modal) {
 	modal.classList.add('modal_opened');
 	// apply closeModalEsc function
 	document.addEventListener('keydown', closeModalEsc);
 }
 
-// specify two parameters name and link
+//* ==========================================
+//*        PopupWithImage
+//* ==========================================
+// (1) // Create an instance of PopupWithImage
+const newImagePopup = new PopupWithImage({ popupSelector: '#image-modal' });
+newImagePopup.setEventListeners();
+
+// (2) // Define the handleImageClick function that will be used by cards
+// (it needs to be in index.js because here's where you create the newImagePopup instance)
 function handleImageClick(cardData) {
-	modalImageElement.src = cardData.link;
-	modalCaption.textContent = cardData.name;
-	// pass alt text attribute to modal image:
-	modalImageElement.alt = cardData.name;
-	// open imageModal using openModal function
-	openModal(imageModal);
+	newImagePopup.open(cardData);
 }
 
-// create a card
+// (3) // CREATE CARDS USING initialCards DATA (ARRAY OF CARD DATA)
+// createCard creates a single card
 function createCard(cardData, cardSelector, handleImageClick) {
 	// create a card and return it rendered using getView()
 	const card = new Card(cardData, cardSelector, handleImageClick);
 	return card.getView();
 }
 
-// use createCard in renderCard
+// handles adding the card to the DOM (it uses createCard)
 function renderCard(cardData, wrapper) {
 	// use createCard to create a card element
 	const cardElement = createCard(cardData, cardSelector, handleImageClick);
 	wrapper.prepend(cardElement);
 }
 
-// iterate over initialCards array
-const cardContainer = document.querySelector(cardSelector);
-initialCards.forEach((cardData) => {
-	renderCard(cardData, cardContainer);
-});
+//* ==========================================
+//*        Section
+//* ==========================================
+const section = new Section(
+	{
+		items: initialCards,
+		renderer: (cardData) => {
+			const cardElement = createCard(cardData, cardSelector, handleImageClick);
+			section.addItem(cardElement);
+		},
+	},
+	'.cards__list'
+);
+
+section.renderItems();
 
 // make x-button close modalImage
 imageModalCloseButton.addEventListener('click', () => closeModal(imageModal));
 
-// make transparent layer close all 3 modals by clicking on it
-layerCloseModals.forEach((modal) => {
-	modal.addEventListener('click', (evt) => {
-		if (evt.target === modal) {
-			closeModal(modal);
-		}
-	});
-});
-
 /*------------------------ EVENT HANDLERS ------------------------------*/
-
+// these two stay in index.js because they are shared with other classes
 function handleProfileFormSubmit(evt) {
+	//first one clears fields upon opening form
 	evt.preventDefault();
-	profileTitle.textContent = profileTitleInput.value;
-	profileDescription.textContent = profileDescriptionInput.value;
+	// profileTitle.textContent = profileTitleInput.value;
+	// profileDescription.textContent = profileDescriptionInput.value;
+	userInfo.setUserInfo(profileTitleInput.value, profileDescriptionInput.value);
 	closeModal(editProfileModal);
 	// clear input fields after submit:
 	evt.target.reset();
 }
 
-// _________________
 function handleAddCardFormSubmit(evt) {
 	evt.preventDefault();
 	const name = cardTitleInput.value;
 	const link = cardUrlInput.value;
 	renderCard({ name, link }, cardsWrap);
 	closeModal(addCardModal);
-	// clear input fields after submit:
-	evt.target.reset();
 	// disable submit button after clearing
 	addFormValidator.disableSubmitButton();
+	// clear input fields after submit:
+	evt.target.reset();
 }
 
-/*------------------------ EVENT LISTENERS ------------------------------*/
-
-profileFormElement.addEventListener('submit', handleProfileFormSubmit);
-
-addCardFormElement.addEventListener('submit', handleAddCardFormSubmit);
-
-profileEditButton.addEventListener('click', () => {
-	profileTitleInput.value = profileTitle.textContent;
-	profileDescriptionInput.value = profileDescription.textContent;
-	openModal(editProfileModal);
-});
+/*------------------------ EVENT LISETENERS ------------------------------*/
 
 profileModalCloseButton.addEventListener('click', () =>
 	closeModal(editProfileModal)
 );
-
-//adds new card button
-addNewCardButton.addEventListener('click', () => openModal(addCardModal));
 
 addCardModalCloseButton.addEventListener('click', () =>
 	closeModal(addCardModal)
 );
 
 // inserts a card
-initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+// initialCards.forEach((cardData) => renderCard(cardData, cardsWrap));
+
+//* ==========================================
+//*        PopupWithForm: Add Card
+//* ==========================================
+const newCardPopup = new PopupWithForm({
+	popupSelector: '#add-card-modal',
+	handleFormSubmit: handleAddCardFormSubmit,
+});
+
+addNewCardButton.addEventListener('click', () => {
+	newCardPopup.open();
+});
+
+newCardPopup.setEventListeners();
+
+//* ==========================================
+//*        PopupWithForm: Edit Profile
+//* ==========================================
+const newEditPopup = new PopupWithForm({
+	popupSelector: '#edit-modal',
+	handleFormSubmit: handleProfileFormSubmit,
+});
+
+profileEditButton.addEventListener('click', () => {
+	const values = userInfo.getUserInfo();
+	profileTitleInput.value = values.name;
+	profileDescriptionInput.value = values.job;
+	newEditPopup.open();
+});
+
+newEditPopup.setEventListeners();
+
+//* ==========================================
+//*        UserInfo
+//* ==========================================
+// // Create one instance of UserInfo.js class and use its methods as described
+// // const newUserInfo = new UserInfo(argument1, argument2);
+// // newUserInfo.getUserInfo);
+// // newUserInfo.setUserInfo);
